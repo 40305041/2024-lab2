@@ -1,0 +1,35 @@
+import sympy as sym
+# Define the symbols a,b,c,d and declare them are real positive
+a, b, c, d, j, omega,s,t= sym.symbols('a, b, c, d, j, omega,s,t', real=True, positive=True)
+s= sym.symbols('s')
+
+# Define G_theta symbolically:
+G_theta = -c/(s**2-d)
+
+X3s_imp = G_theta # Impulse Response in s-domain
+X3t_imp = sym.inverse_laplace_transform(X3s_imp,s,t) # Impulse Response in t-domain
+sym.pprint(X3t_imp)
+
+X3s_freq= G_theta*(omega/(s**2+omega**2)) # Frequency Response in s-domain
+X3t_freq=  sym.inverse_laplace_transform(X3s_freq,s,t) # Frequency Response in t-domain
+sym.pprint(X3t_freq)
+
+X3s_step = G_theta/s # Step response in s-domain
+X3t_step = sym.inverse_laplace_transform(X3s_step,s,t) # Step response in t-domain
+sym.pprint(X3t_step)
+
+#--------------------------------------------------------
+# Define G_x symbolically:
+G_x = (a*s**2+b*c-a*d) / ((s**2-d) * s**2 )
+
+X1s_step= G_x/s # Step response in s-domain
+X1t_step=sym.inverse_laplace_transform(X1s_step,s,t) # Step response in t-domain
+sym.pprint(X1t_step)
+
+X1s_imp= G_x # Impulse response in s-domain
+X1t_imp= sym.inverse_laplace_transform(X1s_imp,s,t) # Impulse response in t-domain
+sym.pprint(X1t_imp)
+
+X1s_freq= G_x*(omega/(s**2+omega**2)) # Frequency response in s-domain
+X1t_freq= sym.inverse_laplace_transform(X1s_freq,s,t) # Frequency response in t-domain
+sym.pprint(X1t_freq)
